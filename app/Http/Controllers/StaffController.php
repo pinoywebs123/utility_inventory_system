@@ -79,6 +79,14 @@ class StaffController extends Controller
         return redirect()->back()->with('item', 'You have successfully added new item');
     }
 
+    public function search(Request $request){
+        $this->validate($request, [
+            'search'=> 'required',
+        ]);
+        $items = Item::where('name','LIKE',$request['search'])->get();
+        return view('staff.search', compact('items'));
+    }
+
     public function logout(){
     	Auth::logout();
     	return redirect()->route('index');

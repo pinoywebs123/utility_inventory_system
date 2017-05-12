@@ -58,6 +58,10 @@ Route::post('/staff/additem', [
 	'as'=> 'add_item',
 	'uses'=> 'StaffController@add_item'
 ]);
+Route::post('/staff/search', [
+	'as'=> 'staff_search',
+	'uses'=> 'StaffController@search'
+]);
 
 Route::get('/logout', [
 	'as'=> 'logout',

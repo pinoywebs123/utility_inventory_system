@@ -28,6 +28,6 @@ class User extends Authenticatable
     ];
 
     public function item(){
-        return $this->hasOne('App\Item');
+        return $this->hasMany('App\Item');
     }
 }

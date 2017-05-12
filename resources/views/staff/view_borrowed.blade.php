@@ -52,6 +52,7 @@
 							<th>Last Name</th>
 							<th>First Name</th>
 							<th>Middle Name</th>
+							<th>Date</th>
 							<th>Action</th>
 						</tr>
 					</thead>
@@ -63,6 +64,7 @@
 								<td>{{$borrower->borrower->lname}}</td>
 								<td>{{$borrower->borrower->fname}}</td>
 								<td>{{$borrower->borrower->mname}}</td>
+								<td>{{$borrower->created_at->diffForHumans()}}</td>
 								<td>
 									<a href="{{route('staff_return', ['item_id'=> $find_item->id,'borrowed_id'=> $borrower->id])}}" class="btn btn-danger btn-xs">return</a>
 								</td>
