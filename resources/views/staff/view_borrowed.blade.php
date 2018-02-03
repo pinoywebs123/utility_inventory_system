@@ -9,18 +9,27 @@
 		background-color: blue;
 	}
 	body{
-		background-color: #060b0f;
+		background-color: #2c3e50;
+	}
+	.panel{
+		border: none;
+	}
+	
+	div .panel{
+		height: 520px !important;
+		border-right: 2px solid #337ab7;
 	}
 </style>
 @endsection
 
 @section('contents')
 <div class="container">
-	<div class="jumbotron">
-		<h2 class="text-center">School University Utility Inventory System</h2>
+	<div >
+		<img src="{{URL::to('images/banner.jpg')}}" height="250px" width="100%">
+		
 	</div>
 	<div class="col-md-3 ">
-		<div class="panel panel-primary">
+		<div class="panel panel-primary row">
 			<div class="panel-heading">
 				<h3>My Profile</h3>
 			</div>
@@ -28,7 +37,9 @@
 				<p><strong>Name:</strong>{{Auth::user()->lname}}, {{Auth::user()->fname}} {{Auth::user()->mname}}</p>
 
 				<ul class="nav nav-pills nav-stacked">
-				  <li role="presentation" ><a href="{{route('staff')}}">List</a></li>
+				  <li role="presentation" class="active"><a href="{{route('staff')}}">Items</a></li>
+				 <li role="presentation"><a href="{{route('staff_inventory')}}">Inventory</a></li>
+				  <li role="presentation"><a href="{{route('staff_report')}}">Reports</a></li>
 				  <li role="presentation"><a href="{{route('logout')}}">Logout</a></li>
 				  
 				</ul>
@@ -36,7 +47,7 @@
 		</div>
 	</div>
 	<div class="col-md-9 ">
-		<div class="panel panel-primary">
+		<div class="panel panel-primary row">
 			<div class="panel-heading">
 				<h3 class="text-center">Details</h3>
 			</div>
@@ -49,9 +60,8 @@
 						<tr>
 							<th>Item Name</th>
 							<th>Quantity</th>
-							<th>Last Name</th>
-							<th>First Name</th>
-							<th>Middle Name</th>
+							<th>Full Name</th>
+							
 							<th>Date</th>
 							<th>Action</th>
 						</tr>
@@ -61,9 +71,8 @@
 							<tr>
 								<td>{{$borrower->item->name}}</td>
 								<td>{{$borrower->quantity}}</td>
-								<td>{{$borrower->borrower->lname}}</td>
-								<td>{{$borrower->borrower->fname}}</td>
-								<td>{{$borrower->borrower->mname}}</td>
+								<td>{{$borrower->borrower->fname}} {{$borrower->borrower->mname}} {{$borrower->borrower->lname}} </td>
+								
 								<td>{{$borrower->created_at->diffForHumans()}}</td>
 								<td>
 									<a href="{{route('staff_return', ['item_id'=> $find_item->id,'borrowed_id'=> $borrower->id])}}" class="btn btn-danger btn-xs">return</a>

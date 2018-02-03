@@ -91,7 +91,7 @@
 						<tr>
 							<th>Item Name</th>
 							<th>Quantity</th>
-							<th>Borrowed</th>
+							
 							
 							<th>Action</th>
 						</tr>
@@ -101,9 +101,9 @@
 							<tr>
 								<td>{{$item->name}}</td>
 								<td><span class="badge" id="quantities">{{$item->quantity}}</span></td>
-								<td><a href="{{route('view_borrowed_item', ['item_id'=> $item->id])}}"><span class="badge" id="borrowed">{{$item->borrowed_item($item->id)}}</span></a></td>
 								
-								<td><a href="{{route('staff_borrow', ['item_id'=> $item->id])}}" class="btn btn-danger btn-xs">Borrow</a></td>
+								
+								<td><a href="{{route('consume_item', ['item_id'=> $item->id])}}" class="btn btn-primary btn-xs">Used</a></td>
 							</tr>
 						@endforeach
 					</tbody>

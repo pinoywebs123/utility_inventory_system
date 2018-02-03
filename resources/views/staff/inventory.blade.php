@@ -40,10 +40,9 @@
 					<p class="text-center"><strong>{{Auth::user()->lname}}, {{Auth::user()->fname}} {{Auth::user()->mname}}</strong></p>
 					<p class="text-center">Full Name</p>
 				</div>
-
 				<ul class="nav nav-pills nav-stacked">
-				  <li role="presentation" class="active"><a href="{{route('staff')}}">Items</a></li>
-				  <li role="presentation"><a href="{{route('staff_inventory')}}">Inventory</a></li>
+				  <li role="presentation" ><a href="{{route('staff')}}">Items</a></li>
+				  <li role="presentation" class="active"><a href="{{route('staff_inventory')}}">Inventory</a></li>
 				  <li role="presentation"><a href="{{route('staff_report')}}">Reports</a></li>
 				  <li role="presentation"><a href="{{route('logout')}}">Logout</a></li>
 				  
@@ -54,7 +53,7 @@
 	<div class="col-md-9 ">
 		<div class="panel panel-primary row">
 			<div class="panel-heading">
-				<h3 class="text-center">Utility Item List</h3>
+				<h3 class="text-center">Utility Inventory List</h3>
 			</div>
 			<div class="panel-body">
 				@if(Session::has('borrow'))
@@ -64,53 +63,47 @@
 					<div class="alert alert-success">{{Session::get('item')}}</div>
 				@endif
 				<div>
-					
-					<form class="pull-right" action="{{route('staff_search')}}" method="POST">
-						@if($errors->has('search'))
-							<span class="help-block">{{$errors->first('search')}}</span>
-						@endif
-						<input type="text" name="search" class="" required="">
-						<button type="submit" class="btn btn-info btn-xs">Search</button>
-						{{csrf_field()}}
-					</form>
-
-
-				</div>
-				<div>
 					<ol class="breadcrumb">
-					  <li><a href="{{route('staff')}}">Returnable</a></li>
-					  <li><a href="{{route('staff_consume')}}">Consumable</a></li>
+					  <li><a href="{{route('staff_inventory')}}">Item List</a></li>
+					  <li><a href="{{route('staff_inventory_new')}}">New Item</a></li>
 					  <li class="pull-right">
 					  	
 					  </li>
 					</ol>
+
+
+					
 				</div>
 
 				<table class="table">
 					<thead>
 						<tr>
+							<th>Reciever</th>
 							<th>Item Name</th>
 							<th>Quantity</th>
-							<th>Borrowed</th>
+							<th>Date Delivered</th>
 							
-							<th>Action</th>
 						</tr>
 					</thead>
 					<tbody>
 						@foreach($items as $item)
 							<tr>
+								<td>{{$item->user->fname}} {{$item->user->lname}}</td>
 								<td>{{$item->name}}</td>
-								<td><span class="badge" id="quantities">{{$item->quantity}}</span></td>
-								<td><a href="{{route('view_borrowed_item', ['item_id'=> $item->id])}}"><span class="badge" id="borrowed">{{$item->borrowed_item($item->id)}}</span></a></td>
+								<td>{{$item->quantity}}</td>
 								
-								<td><a href="{{route('staff_borrow', ['item_id'=> $item->id])}}" class="btn btn-danger btn-xs">Borrow</a></td>
+								<td>{{$item->created_at->toDayDateTimeString()}}</td>
+								
 							</tr>
 						@endforeach
 					</tbody>
 				</table>
+				
 			</div>
-			<div class="text-center">{{$items->links()}}</div>
+			
 		</div>
+
+
 	</div>
 	</div>
 

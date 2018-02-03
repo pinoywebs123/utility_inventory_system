@@ -3,7 +3,7 @@
 use App\User;
 use App\Item;
 
-Route::get('add', function(){
+Route::get('/add', function(){
 	$user = new User;
 	$user->lname = 'askal';
 	$user->fname = 'piyolo';
@@ -38,6 +38,11 @@ Route::get('/main', [
 	'uses'=> 'StaffController@main'
 ]);
 
+Route::get('/staff_consume', [
+	'as'=> 'staff_consume',
+	'uses'=> 'StaffController@staff_consume'
+]);
+
 Route::get('/staff/item/{item_id}', [
 	'as'=> 'staff_borrow',
 	'uses'=> 'StaffController@staff_borrow'
@@ -45,6 +50,14 @@ Route::get('/staff/item/{item_id}', [
 Route::post('/staff/item/{item_id}', [
 	'as'=> 'borrow_item',
 	'uses'=> 'StaffController@borrow_item'
+]);
+Route::post('/staff/consume/{item_id}', [
+	'as'=> 'consume_item_check',
+	'uses'=> 'StaffController@comsume_item'
+]);
+Route::get('/staff/comsume/{item_id}', [
+	'as'=> 'consume_item',
+	'uses'=> 'StaffController@consume_item'
 ]);
 Route::get('/staff/{item_id}/borrowed_item', [
 	'as'=> 'view_borrowed_item',
@@ -61,6 +74,23 @@ Route::post('/staff/additem', [
 Route::post('/staff/search', [
 	'as'=> 'staff_search',
 	'uses'=> 'StaffController@search'
+]);
+
+Route::get('/staff/inventory', [
+	'as'=> 'staff_inventory',
+	'uses'=> 'StaffController@staff_inventory'
+]);
+
+Route::get('/staff/inventory-new', [
+	'as'=> 'staff_inventory_new',
+	'uses'=> 'StaffController@staff_inventory_new'
+]);
+
+
+
+Route::get('/staff/reposrts', [
+	'as'=> 'staff_report',
+	'uses'=> 'StaffController@staff_report'
 ]);
 
 Route::get('/logout', [

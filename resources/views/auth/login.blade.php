@@ -15,7 +15,7 @@
 @section('contents')
 	<div class="container">
 		<div class="col-md-6 col-md-offset-3 well">
-			<h1 class="text-center">School University Utility System</h1>
+			<h1 class="text-center">N.O.R.S.U Campus 1 Utility Management System</h1>
 			@if(Session::has('error'))
 				<div class="alert alert-danger">{{Session::get('error')}}</div>
 			@endif

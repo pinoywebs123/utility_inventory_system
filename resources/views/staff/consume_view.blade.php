@@ -51,13 +51,13 @@
 	<div class="col-md-9 ">
 		<div class="panel panel-info row">
 			<div class="panel-heading">
-				<h3 class="text-center">Category: Returnable</h3>
+				<h3 class="text-center">Category: Consumable</h3>
 				<h3 class="text-center">Item Name: {{$find_item->name}}</h3>
 				<h3 class="text-center">Quantity: <span class="badge">{{$find_item->quantity}}</span></h3>
 			</div>
 			<div class="panel-body">
 				<div class="col-md-6 col-md-offset-3">
-					<form action="{{route('borrow_item', ['item_id'=> $find_item->id])}}" method="POST">
+					<form action="{{route('consume_item_check', ['item_id'=> $find_item->id])}}" method="POST">
 						<div class="form-group {{$errors->has('lname') ? 'has-error' : ''}}">
 							<label>Quantity</label>
 							<input type="text" name="quantity" class="form-control">

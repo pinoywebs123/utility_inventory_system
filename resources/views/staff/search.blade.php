@@ -9,26 +9,39 @@
 		background-color: blue;
 	}
 	body{
-		background-color: #060b0f;
+		background-color: #2c3e50;
+	}
+	.panel{
+		border: none;
+	}
+	
+	div .panel{
+		height: 520px !important;
+		border-right: 2px solid #337ab7;
 	}
 </style>
 @endsection
 
 @section('contents')
 <div class="container">
-	<div class="jumbotron">
-		<h2 class="text-center">School University Utility Inventory System</h2>
+	<div >
+		<img src="{{URL::to('images/banner.jpg')}}" height="250px" width="100%">
+		
 	</div>
 	<div class="col-md-3 ">
-		<div class="panel panel-primary">
+		<div class="panel panel-primary row">
 			<div class="panel-heading">
 				<h3 class="text-center">My Profile</h3>
 			</div>
 			<div class="panel-body">
-				<p><strong>Name:</strong>{{Auth::user()->lname}}, {{Auth::user()->fname}} {{Auth::user()->mname}}</p>
-
+				<div class="thumbnail">
+					<p class="text-center"><strong>{{Auth::user()->lname}}, {{Auth::user()->fname}} {{Auth::user()->mname}}</strong></p>
+					<p class="text-center">Full Name</p>
+				</div>
 				<ul class="nav nav-pills nav-stacked">
-				  <li role="presentation" class="active"><a href="{{route('staff')}}">List</a></li>
+				  <li role="presentation" class="active"><a href="{{route('staff')}}">Items</a></li>
+				  <li role="presentation"><a href="{{route('staff_inventory')}}">Inventory</a></li>
+				  <li role="presentation"><a href="{{route('staff_report')}}">Reports</a></li>
 				  <li role="presentation"><a href="{{route('logout')}}">Logout</a></li>
 				  
 				</ul>
@@ -36,7 +49,7 @@
 		</div>
 	</div>
 	<div class="col-md-9 ">
-		<div class="panel panel-primary">
+		<div class="panel panel-primary row">
 			<div class="panel-heading">
 				<h3 class="text-center">Utility Inventory List</h3>
 			</div>
@@ -65,7 +78,7 @@
 							<th>Item Name</th>
 							<th>Quantity</th>
 							<th>Borrowed</th>
-							<th>Date</th>
+							<th>Date Delivered</th>
 							<th>Action</th>
 						</tr>
 					</thead>
