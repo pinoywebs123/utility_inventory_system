@@ -42,11 +42,12 @@
 				</div>
 
 				<ul class="nav nav-pills nav-stacked">
-				  <li role="presentation" class="active"><a href="{{route('staff')}}">Items</a></li>
+				  <li role="presentation" ><a href="{{route('staff')}}">Items</a></li>
 				  <li role="presentation"><a href="{{route('staff_inventory')}}">Inventory</a></li>
-				   <li role="presentation"><a href="{{route('staff_mr')}}">M.R</a></li>
+				  <li role="presentation" class="active"><a href="{{route('staff_mr')}}">M.R</a></li>
 				  <li role="presentation"><a href="{{route('staff_report')}}">Reports</a></li>
 				   <li role="presentation" ><a href="{{route('staff_users')}}">Users</a></li>
+				   
 				  <li role="presentation"><a href="{{route('logout')}}">Logout</a></li>
 				  
 				</ul>
@@ -67,51 +68,35 @@
 				@endif
 				<div>
 					
-					<form class="pull-right" action="{{route('staff_search')}}" method="POST">
-						@if($errors->has('search'))
-							<span class="help-block">{{$errors->first('search')}}</span>
-						@endif
-						<input type="text" name="search" class="" required="">
-						<button type="submit" class="btn btn-info btn-xs">Search</button>
-						{{csrf_field()}}
-					</form>
 
 
 				</div>
 				<div>
 					<ol class="breadcrumb">
-					  <li><a href="{{route('staff')}}">Returnable</a></li>
-					  <li><a href="{{route('staff_consume')}}">Consumable</a></li>
+					  <li><a href="{{route('staff_mr')}}">Unclaim</a></li>
+					  <li><a href="#">Claim</a></li>
 					  <li class="pull-right">
 					  	
 					  </li>
 					</ol>
 				</div>
-
+				<a href="#" class="btn btn-info btn-xs">New M.R</a>
 				<table class="table">
 					<thead>
 						<tr>
-							<th>Item Name</th>
 							<th>Quantity</th>
-							<th>Borrowed</th>
-							
-							<th>Action</th>
+							<th>Description</th>
+							<th>Property Number</th>
+							<th>Date Aquired</th>
+							<th>Amount</th>
 						</tr>
 					</thead>
 					<tbody>
-						@foreach($items as $item)
-							<tr>
-								<td>{{$item->name}}</td>
-								<td><span class="badge" id="quantities">{{$item->quantity}}</span></td>
-								<td><a href="{{route('view_borrowed_item', ['item_id'=> $item->id])}}"><span class="badge" id="borrowed">{{$item->borrowed_item($item->id)}}</span></a></td>
-								
-								<td><a href="{{route('staff_borrow', ['item_id'=> $item->id])}}" class="btn btn-danger btn-xs">Borrow</a></td>
-							</tr>
-						@endforeach
+						
 					</tbody>
 				</table>
 			</div>
-			<div class="text-center">{{$items->links()}}</div>
+			<
 		</div>
 	</div>
 	</div>

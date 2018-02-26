@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Auth;
+use App\Report;
 class UserController extends Controller
 {
 	public function __construct(){
@@ -11,7 +12,8 @@ class UserController extends Controller
 	}
     
     public function user_main(){
-    	return view('users.main');
+         $reports = Report::where('borrower_id', Auth::id())->get();
+    	return view('users.main', compact('reports'));
     }
 
     public function user_consume(){

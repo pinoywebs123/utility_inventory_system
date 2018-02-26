@@ -34,12 +34,16 @@
 				<h3>My Profile</h3>
 			</div>
 			<div class="panel-body">
-				<p><strong>Name:</strong>{{Auth::user()->lname}}, {{Auth::user()->fname}} {{Auth::user()->mname}}</p>
-
+				<div class="thumbnail">
+					<p class="text-center"><strong>{{Auth::user()->lname}}, {{Auth::user()->fname}} {{Auth::user()->mname}}</strong></p>
+					<p class="text-center">Full Name</p>
+				</div>
 				<ul class="nav nav-pills nav-stacked">
 				  <li role="presentation" class="active"><a href="{{route('staff')}}">Items</a></li>
 				 <li role="presentation"><a href="{{route('staff_inventory')}}">Inventory</a></li>
+				  <li role="presentation"><a href="{{route('staff_mr')}}">M.R</a></li>
 				  <li role="presentation"><a href="{{route('staff_report')}}">Reports</a></li>
+				   <li role="presentation" ><a href="{{route('staff_users')}}">Users</a></li>
 				  <li role="presentation"><a href="{{route('logout')}}">Logout</a></li>
 				  
 				</ul>
@@ -81,7 +85,7 @@
 									@if($borrower->created_at->diffInDays() > $borrower->days['days'])
 										<button class="btn btn-danger btn-xs" disabled="">Due Already</button>
 									@else
-										<button class="btn btn-success btn-xs" disabled="">Not Yet Due</button>
+										<button class="btn btn-success btn-xs" disabled="">Not Yet </button>
 									@endif
 								</td>
 								<td>

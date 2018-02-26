@@ -41,7 +41,9 @@
 				<ul class="nav nav-pills nav-stacked">
 				  <li role="presentation" class="active"><a href="{{route('staff')}}">Items</a></li>
 				  <li role="presentation"><a href="{{route('staff_inventory')}}">Inventory</a></li>
+				   <li role="presentation"><a href="{{route('staff_mr')}}">M.R</a></li>
 				  <li role="presentation"><a href="{{route('staff_report')}}">Reports</a></li>
+				   <li role="presentation" ><a href="{{route('staff_users')}}">Users</a></li>
 				  <li role="presentation"><a href="{{route('logout')}}">Logout</a></li>
 				  
 				</ul>

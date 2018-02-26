@@ -190,4 +190,18 @@ class StaffController extends Controller
         return $id;
     }
 
+    public function staff_users(){
+        $users = User::where('role_id',1)->get();
+        return view('staff.staff', compact('users'));
+    }
+
+    public function staff_end_users(){
+         $users = User::where('role_id',2)->get();
+        return view('staff.users', compact('users'));
+    }
+
+    public function staff_mr(){
+        return view('staff.mr');
+    }
+
 }

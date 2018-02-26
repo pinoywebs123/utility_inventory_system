@@ -96,6 +96,21 @@ Route::get('/staff/inventory-new', [
 	'uses'=> 'StaffController@staff_inventory_new'
 ]);
 
+Route::get('/staff/users-staff',[
+	'as'=> 'staff_users',
+	'uses'=> 'StaffController@staff_users'
+]);
+
+Route::get('/staff/users-end-users',[
+	'as'=> 'staff_end_users',
+	'uses'=> 'StaffController@staff_end_users'
+]);
+
+Route::get('/staff/M-R', [
+	'as'=> 'staff_mr',
+	'uses'=> 'StaffController@staff_mr'
+]);
+
 
 
 Route::get('/staff/reposrts', [

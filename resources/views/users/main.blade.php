@@ -16,7 +16,7 @@
 	}
 	
 	div .panel{
-		height: 520px !important;
+		
 		border-right: 2px solid #337ab7;
 	}
 	
@@ -71,14 +71,47 @@
 
 				</div>
 				<div>
-					<ol class="breadcrumb">
+					<!-- <ol class="breadcrumb">
 					  <li><a href="{{route('user_main')}}">Returnable</a></li>
 					  <li><a href="{{route('user_consume')}}">Consumable</a></li>
 					  <li class="pull-right">
 					  	
 					  </li>
-					</ol>
+					</ol> -->
 				</div>
+				<table class="table">
+					<thead>
+						<tr>
+							<th>Item Name</th>
+							<th>Quantity</th>
+							
+							<th>Transactin Date</th>
+							<th>Operations</th>
+						</tr>
+					</thead>
+					<tbody>
+						@foreach($reports as $rep)
+
+							<tr>
+								<td>{{$rep->item->name}}</td>
+								<td>{{$rep->quantity}}</td>
+								
+								<td>{{$rep->created_at->toDayDateTimeString()}}</td>
+								<td>
+									@if($rep->status == 0)
+										borrowed
+									@elseif($rep->status == 1)
+										returned
+									@elseif($rep->status == 3)
+										consumed	
+									@endif
+								</td>
+							</tr>
+						@endforeach
+					</tbody>
+
+				</table>
+				
 
 				
 			</div>
