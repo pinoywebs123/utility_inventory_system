@@ -10,9 +10,12 @@ use App\User;
 use App\Inventory;
 use App\Report;
 use Illuminate\Support\Facades\Auth;
-
+use DB;
 class StaffController extends Controller
 {
+    public function __construct(){
+        $this->middleware('staffcheck');
+    }
     public function main(){
     	$items = Item::where('category_id',1)->paginate(10);
     	return view('staff.main', compact('items'));
@@ -28,36 +31,39 @@ class StaffController extends Controller
     	if(!$find_item){
     		abort(404);
     	}
-
-    	return view('staff.borrow', compact('find_item'));
+        $users = User::where('role_id',2)->get();
+    	return view('staff.borrow', compact('find_item', 'users'));
     }
     public function borrow_item(Request $request, $item_id){
     	$this->validate($request, [
-    		'lname' => 'required|max:15',
-    		'fname' => 'required|max:15',
-    		'mname' => 'required|max:15',
+    		'user_id' => 'required|max:15',
+    		'days' =>'required',
     		'quantity'=> 'required|max:4'
     	]);
 
-    	$borrower = new Borrower;
-    	$borrower->lname = $request['lname'];
-    	$borrower->fname = $request['fname'];
-    	$borrower->mname = $request['mname'];
-    	$borrower->save();
+    	
 
         $report = new Report;
-        $report->borrower_id = $borrower->id;
+        $report->borrower_id = $request['user_id'];
         $report->item_id = $item_id;
         $report->quantity = $request['quantity'];
         $report->status = 0;
         $report->save();
 
-    	$find_borrower = Borrower::find($borrower->id);
-    	$borrower_item = new borrower_item;
-    	$borrower_item->item_id = $item_id;
-    	$borrower_item->quantity = $request['quantity'];
-    	$borrower_item->status = 0;
-    	$find_borrower->borrower_item()->save($borrower_item);
+    	
+
+        $borrower_item = new borrower_item;
+        $borrower_item->borrower_id = $request['user_id'];
+        $borrower_item->item_id = $item_id;
+        $borrower_item->quantity = $request['quantity'];
+        $borrower_item->status = 0;
+        $borrower_item->save();
+
+        DB::table('borrower_item_days')->insert([
+        'days'      => $request['days'],
+        'borrower_item_id'=> $borrower_item->id
+    
+        ]);
 
         
 
@@ -79,7 +85,7 @@ class StaffController extends Controller
     	$borrower_item = borrower_item::find($borrowed_id);
 
         $report = new Report;
-        $report->borrower_id = $borrowed_id;
+        $report->borrower_id = $borrower_item->borrower_id;
         $report->item_id = $item_id;
         $report->quantity = $item->quantity;
         $report->status = 1;
@@ -130,7 +136,7 @@ class StaffController extends Controller
     }
 
     public function staff_report(){
-        $reports = Report::all();
+        $reports = Report::paginate(10);
         return view('staff.reports', compact('reports'));
     }
 
@@ -141,31 +147,26 @@ class StaffController extends Controller
     public function comsume_item(Request $request, $item_id){
         
         $this->validate($request, [
-            'lname' => 'required|max:15',
-            'fname' => 'required|max:15',
-            'mname' => 'required|max:15',
+            'user_id' => 'required|max:15',
+            
             'quantity'=> 'required|max:4'
         ]);
 
-        $borrower = new Borrower;
-        $borrower->lname = $request['lname'];
-        $borrower->fname = $request['fname'];
-        $borrower->mname = $request['mname'];
-        $borrower->save();
+        
 
         $report = new Report;
-        $report->borrower_id = $borrower->id;
+        $report->borrower_id = $request['user_id'];
         $report->item_id = $item_id;
         $report->quantity = $request['quantity'];
         $report->status = 3;
         $report->save();
 
-        $find_borrower = Borrower::find($borrower->id);
         $borrower_item = new borrower_item;
+        $borrower_item->borrower_id = $request['user_id'];
         $borrower_item->item_id = $item_id;
         $borrower_item->quantity = $request['quantity'];
         $borrower_item->status = 3;
-        $find_borrower->borrower_item()->save($borrower_item);
+        $borrower_item->save();
 
         
 
@@ -181,7 +182,8 @@ class StaffController extends Controller
         if(!$find_item){
             abort(404);
         }
-        return view('staff.consume_view', compact('find_item'));
+        $users = User::where('role_id',2)->get();
+        return view('staff.consume_view', compact('find_item','users'));
     }
 
     public function staff_newsupply($id){

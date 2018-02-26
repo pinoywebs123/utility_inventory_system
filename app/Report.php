@@ -11,7 +11,7 @@ class Report extends Model
     }
 
     public function borrow(){
-    	return $this->belongsTo('App\Borrower','borrower_id','id');
+    	return $this->belongsTo('App\User','borrower_id','id');
     }
 
 

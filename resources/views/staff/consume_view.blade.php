@@ -58,33 +58,21 @@
 			<div class="panel-body">
 				<div class="col-md-6 col-md-offset-3">
 					<form action="{{route('consume_item_check', ['item_id'=> $find_item->id])}}" method="POST">
-						<div class="form-group {{$errors->has('lname') ? 'has-error' : ''}}">
+						<div class="form-group {{$errors->has('quantity') ? 'has-error' : ''}}">
 							<label>Quantity</label>
-							<input type="text" name="quantity" class="form-control">
+							<input type="number" name="quantity" class="form-control"  min="1" max="{{$find_item->quantity}}">
 							@if($errors->has('quantity'))
 								<span class="help-block">{{$errors->first('quantity')}}</span>
 							@endif
 						</div>
-						<div class="form-group {{$errors->has('lname') ? 'has-error' : ''}}">
-							<label>Last Name</label>
-							<input type="text" name="lname" class="form-control">
-							@if($errors->has('lname'))
-								<span class="help-block">{{$errors->first('lname')}}</span>
-							@endif
-						</div>
-						<div class="form-group {{$errors->has('fname') ? 'has-error' : ''}}">
-							<label>First Name</label>
-							<input type="text" name="fname" class="form-control">
-							@if($errors->has('fname'))
-								<span class="help-block">{{$errors->first('fname')}}</span>
-							@endif
-						</div>
-						<div class="form-group {{$errors->has('mname') ? 'has-error' : ''}}">
-							<label>Middle Name</label>
-							<input type="text" name="mname" class="form-control">
-							@if($errors->has('mname'))
-								<span class="help-block">{{$errors->first('mname')}}</span>
-							@endif
+						
+						
+						<div class="form-group">
+							<select name="user_id" class="form-control">
+								@foreach($users as $morl)
+									<option value="{{$morl->id}}">{{$morl->fname}} {{$morl->lname}}</option>
+								@endforeach
+							</select>
 						</div>
 						<button type="submit" class="btn btn-primary btn-block">Submit</button>
 						{{csrf_field()}}

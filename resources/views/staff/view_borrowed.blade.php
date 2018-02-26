@@ -62,7 +62,9 @@
 							<th>Quantity</th>
 							<th>Full Name</th>
 							
-							<th>Date</th>
+							<th>Borrowed Time</th>
+							<th>Days to Return</th>
+							<th>Due Date</th>
 							<th>Action</th>
 						</tr>
 					</thead>
@@ -74,9 +76,18 @@
 								<td>{{$borrower->borrower->fname}} {{$borrower->borrower->mname}} {{$borrower->borrower->lname}} </td>
 								
 								<td>{{$borrower->created_at->diffForHumans()}}</td>
+								<td>{{$borrower->days['days']}}</td>
+								<td>
+									@if($borrower->created_at->diffInDays() > $borrower->days['days'])
+										<button class="btn btn-danger btn-xs" disabled="">Due Already</button>
+									@else
+										<button class="btn btn-success btn-xs" disabled="">Not Yet Due</button>
+									@endif
+								</td>
 								<td>
 									<a href="{{route('staff_return', ['item_id'=> $find_item->id,'borrowed_id'=> $borrower->id])}}" class="btn btn-danger btn-xs">return</a>
 								</td>
+								
 							</tr>
 						@endforeach
 					</tbody>

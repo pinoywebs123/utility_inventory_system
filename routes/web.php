@@ -31,6 +31,16 @@ Route::post('/login', [
 	'uses'=> 'AuthController@login'
 ]);
 
+Route::get('/register', [
+	'as'=> 'register',
+	'uses'=> 'AuthController@register'
+]);
+
+Route::post('/register',[
+	'as'=> 'register_check',
+	'uses'=> 'AuthController@register_check'
+]);
+
 
 //Route Staff
 Route::get('/main', [
@@ -97,3 +107,27 @@ Route::get('/logout', [
 	'as'=> 'logout',
 	'uses'=>'StaffController@logout'
 ]);
+
+//USER Route
+
+Route::group(['prefix'=> 'user'], function(){
+
+	Route::get('/main',[
+		'as'=> 'user_main',
+		'uses'=> 'UserController@user_main'
+	]);
+		Route::get('/consumable',[
+			'as'=> 'user_consume',
+			'uses'=> 'UserController@user_consume'
+		]);
+
+	Route::get('/m-r', [
+		'as'=> 'user_mr',
+		'uses'=> 'UserController@user_mr'
+	]);
+
+	Route::get('/logout', [
+		'as'=> 'user_logout',
+		'uses'=> 'UserController@user_logout'
+	]);
+});

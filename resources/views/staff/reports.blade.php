@@ -16,7 +16,8 @@
 	}
 	
 	div .panel{
-		height: 520px !important;
+		
+		max-height: 100% !important;
 		border-right: 2px solid #337ab7;
 	}
 	
@@ -29,7 +30,7 @@
 		<img src="{{URL::to('images/banner.jpg')}}" height="250px" width="100%">
 		
 	</div>
-	<div class="">
+	<div class="row">
 		<div class="col-md-3 ">
 		<div class="panel panel-primary row">
 			<div class="panel-heading">
@@ -86,10 +87,12 @@
 							</tr>
 						@endforeach
 					</tbody>
+
 				</table>
 				
-				
+				<center>{{$reports->links()}}</center>
 			</div>
+			
 			
 		</div>
 

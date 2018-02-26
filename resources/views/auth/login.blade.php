@@ -41,6 +41,7 @@
 				<div class="form-group">
 					<div class="col-md-8 col-md-offset-3">
 						<button type="submit" class="btn btn-primary">Login</button>
+						<a href="{{route('register')}}" class="btn btn-default">Register</a>
 					</div>
 				</div>
 				{{csrf_field()}}
